@@ -21,7 +21,7 @@ jobs:
       - name: Read version from worker.js
         id: version
         run: |
-          VERSION=$(grep 'const VERSION' danmu_apis/worker.js | sed -E 's/.*const VERSION = "(.*)".*/\1/')
+          VERSION=$(grep 'const VERSION' danmu_api/worker.js | sed -E 's/.*const VERSION = "(.*)".*/\1/')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       # 设置 Docker 镜像缓存（可选，加速构建）
