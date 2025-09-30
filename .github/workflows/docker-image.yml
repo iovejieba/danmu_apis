@@ -22,7 +22,7 @@ jobs:
       - name: Read version from worker.js
         id: version
         run: |
-          VERSION=$(grep 'const VERSION' danmu_api/worker.js | sed -E 's/.*const VERSION = "(.*)".*/\1/')
+          VERSION=$(grep 'const VERSION' danmu_apis/worker.js | sed -E 's/.*const VERSION = "(.*)".*/\1/')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       # 设置 Docker 镜像缓存（可选，加速构建）
@@ -40,7 +40,7 @@ jobs:
       - name: Build and Push Docker image with version and latest tag
         run: |
           # 构建带版本号的镜像并推送
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/danmu-api:${{ env.VERSION }} --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/danmu-apis:${{ env.VERSION }} --push .
 
           # 构建带 latest 标签的镜像并推送
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/danmu-api:latest --push .
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/danmu-apis:latest --push .
